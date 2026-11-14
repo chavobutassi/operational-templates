@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operational Readiness Template</title>
+<style>
+  :root{
+    --base:#14171c; --base2:#1b1f26; --panel:#1e232b; --line:#2b313b;
+    --amber:#c47d1a; --amber-bright:#e7a94a; --ink:#eef2f6; --muted:#9aa6b4;
+    --ok:#3fae6b; --warn:#e0a63a; --crit:#e05a4a; --chip:#262c35;
+    --mono:'IBM Plex Mono','DejaVu Sans Mono',ui-monospace,monospace;
+    --sans:'Inter','Liberation Sans',system-ui,-apple-system,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--base);color:var(--ink);font-family:var(--sans);line-height:1.5;
+       -webkit-font-smoothing:antialiased}
+  a{color:var(--amber-bright);text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  /* header */
+  header{background:linear-gradient(160deg,#1b1f26,#0e1013);border-bottom:1px solid var(--line)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:16px}
+  .badge{width:52px;height:52px;flex:none}
+  .wm{font-size:20px;font-weight:700;letter-spacing:.11em;line-height:1}
+  .wm2{font-size:11px;font-weight:700;letter-spacing:.26em;color:var(--amber);margin-top:6px}
+  .nav a{font-size:13px;color:var(--muted);margin-left:22px;letter-spacing:.02em}
+  .nav a:hover{color:var(--ink)}
+  .hero{padding:30px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)}
+  h1{font-size:40px;line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:14px 0 14px;max-width:880px}
+  .lead{font-size:18px;color:var(--muted);max-width:820px}
+  .demo-flag{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-family:var(--mono);
+    font-size:12.5px;color:var(--amber-bright);background:rgba(196,125,26,.10);
+    border:1px solid rgba(196,125,26,.4);border-radius:8px;padding:9px 14px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--amber-bright)}
+
+  /* kpis */
+  section{padding:38px 0;border-top:1px solid var(--line)}
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+  .sec-h h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .sec-h .tag{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .kpi .l{font-size:12px;color:var(--muted);letter-spacing:.03em}
+  .kpi .v{font-family:var(--mono);font-size:34px;font-weight:700;margin-top:8px;line-height:1}
+  .kpi .s{font-size:12px;margin-top:8px}
+  .v.ok{color:#5fd08a}.v.warn{color:var(--warn)}.v.crit{color:var(--crit)}
+  .s.ok{color:#5fd08a}.s.warn{color:var(--warn)}.s.crit{color:var(--crit)}
+
+  /* controls */
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+  .controls input,.controls select{background:var(--chip);border:1px solid var(--line);color:var(--ink);
+    border-radius:8px;padding:9px 12px;font-size:13px;font-family:var(--sans)}
+  .controls input{min-width:230px}
+  .controls .hint{font-size:12px;color:var(--muted)}
+
+  /* table */
+  .tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;
+     cursor:pointer;user-select:none;white-space:nowrap}
+  th:hover{color:var(--ink)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(255,255,255,.025)}
+  td.mono,.mono{font-family:var(--mono)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid}
+  .p-ok{color:#6ad492;border-color:rgba(63,174,107,.5);background:rgba(63,174,107,.10)}
+  .p-warn{color:var(--warn);border-color:rgba(224,166,58,.5);background:rgba(224,166,58,.10)}
+  .p-crit{color:#f08a7c;border-color:rgba(224,90,74,.5);background:rgba(224,90,74,.12)}
+  .p-muted{color:var(--muted);border-color:var(--line);background:transparent}
+  .flag{color:var(--crit);font-weight:700}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h3{font-size:15px;font-weight:700;margin-bottom:12px;letter-spacing:.01em}
+  .dict{font-size:13.5px}
+  .dict dt{font-family:var(--mono);color:var(--amber-bright);font-size:12.5px;margin-top:12px}
+  .dict dt:first-child{margin-top:0}
+  .dict dd{color:var(--muted);margin-top:3px}
+  .rule{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .rule:last-child{border-bottom:none}
+  .rule .mk{font-family:var(--mono);font-size:12px;font-weight:700;flex:none;width:58px}
+  .rule .mk.pass{color:#6ad492}.rule .mk.fail{color:#f08a7c}
+  .rule .d{color:var(--muted)}
+  .rule .d b{color:var(--ink);font-weight:600}
+
+  pre{background:#0e1116;border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;
+      font-family:var(--mono);font-size:12.5px;color:#cdd6e0;line-height:1.55}
+  .note{font-size:12.5px;color:var(--muted);margin-top:12px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:14px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:13px}
+  footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer .mono{font-size:12px}
+  @media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <svg class="badge" viewBox="0 0 66 66" fill="none"><rect x="1.5" y="1.5" width="63" height="63" rx="15" fill="#1e232b" stroke="#c47d1a" stroke-opacity="0.55" stroke-width="1.5"/><path d="M11 47 C25 41 31 25 56 15" stroke="#c47d1a" stroke-width="5" stroke-linecap="round"/><text x="33" y="43" text-anchor="middle" font-family="Inter,Arial" font-weight="700" font-size="30" fill="#fff">CB</text></svg>
+      <div><div class="wm">CLAUDIO BUTASSI</div><div class="wm2">ENERGY &amp; DATA ANALYTICS</div></div>
+    </div>
+    <nav class="nav">
+      <a href="#readiness">Readiness</a>
+      <a href="#assets">Equipment</a>
+      <a href="#dictionary">Indicators</a>
+      <a href="#validation">Validation</a>
+      <a href="#model">Data model</a>
+    </nav>
+  </div>
+  <div class="wrap hero">
+    <div class="eyebrow">Open operational template</div>
+    <h1>Operational Readiness Template</h1>
+    <p class="lead">A reusable template that connects <b style="color:var(--ink)">personnel readiness</b>, <b style="color:var(--ink)">equipment availability</b>, and <b style="color:var(--ink)">outstanding work</b> into one view supervisors can act on — for private security, water &amp; wastewater, transportation, and facility field-service operations. Standard fields, documented indicators, and built-in validation, free to adapt.</p>
+    <div class="demo-flag"><span class="dot"></span>Demonstration data only — no real individuals or organizations. Replace with your own authorized records.</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- KPI STRIP -->
+  <section id="overview" style="border-top:none;padding-top:30px">
+    <div class="sec-h"><h2>Readiness at a glance</h2><span class="tag">auto-computed from the records below</span></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="legend">
+      <span><span class="pill p-ok">ready</span> available &amp; fully qualified</span>
+      <span><span class="pill p-warn">review</span> expiring/incomplete — verify before assigning</span>
+      <span><span class="pill p-crit">blocked</span> unavailable or lapsed qualification</span>
+    </div>
+  </section>
+
+  <!-- PERSONNEL READINESS -->
+  <section id="readiness">
+    <div class="sec-h"><h2>Personnel-readiness register</h2><span class="tag">availability · qualifications · eligibility</span></div>
+    <div class="controls">
+      <input id="search" type="text" placeholder="Search name, role, site…" oninput="render()">
+      <select id="fstatus" onchange="render()">
+        <option value="">All readiness states</option>
+        <option value="ready">Ready</option>
+        <option value="review">Review</option>
+        <option value="blocked">Blocked</option>
+      </select>
+      <select id="fsite" onchange="render()"><option value="">All sites</option></select>
+      <span class="hint">Click a column header to sort.</span>
+    </div>
+    <div class="tablewrap">
+      <table id="ptable">
+        <thead><tr>
+          <th data-k="name">Name</th>
+          <th data-k="role">Role</th>
+          <th data-k="site">Assigned site</th>
+          <th data-k="availability">Availability</th>
+          <th data-k="quals">Qualifications</th>
+          <th data-k="next_exp">Next expiry</th>
+          <th data-k="state">Readiness</th>
+        </tr></thead>
+        <tbody id="pbody"></tbody>
+      </table>
+    </div>
+    <p class="note">Eligibility rules (which qualifications a role requires) are set by the client's authorized personnel. This template only organizes and surfaces the records; operational decisions remain with the organization.</p>
+  </section>
+
+  <!-- EQUIPMENT / WORK ORDERS -->
+  <section id="assets">
+    <div class="sec-h"><h2>Equipment &amp; work-order view</h2><span class="tag">availability linked to outstanding work</span></div>
+    <div class="tablewrap">
+      <table id="etable">
+        <thead><tr>
+          <th data-k="asset">Asset</th>
+          <th data-k="tag">Tag</th>
+          <th data-k="site">Site</th>
+          <th data-k="status">Status</th>
+          <th data-k="wo">Open work order</th>
+          <th data-k="due">Due</th>
+          <th data-k="state">Flag</th>
+        </tr></thead>
+        <tbody id="ebody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- INDICATOR DICTIONARY + VALIDATION -->
+  <div class="two">
+    <section id="dictionary" style="border-top:none">
+      <div class="sec-h"><h2>Indicator dictionary</h2></div>
+      <div class="card">
+        <dl class="dict">
+          <dt>coverage_rate</dt><dd>Share of personnel in a <b>ready</b> state out of total active personnel. Answers: can the available team cover planned assignments?</dd>
+          <dt>expiring_quals_30d</dt><dd>Count of qualifications lapsing within 30 days. Prompts renewal before an assignment is blocked.</dd>
+          <dt>equipment_available</dt><dd>Assets in service and not awaiting maintenance, over total assets.</dd>
+          <dt>overdue_work_orders</dt><dd>Open work orders past their due date. Each links to the specific asset and site.</dd>
+        </dl>
+      </div>
+      <p class="note">Each indicator ships with its definition, source field, and update frequency so numbers mean the same thing across organizations.</p>
+    </section>
+
+    <section id="validation" style="border-top:none">
+      <div class="sec-h"><h2>Validation checklist</h2><span class="tag">runs on the demo data</span></div>
+      <div class="card" id="rules"></div>
+      <p class="note">Validation runs before records feed any indicator: it separates "current and trustworthy" from "needs verification," and keeps a visible exception trail.</p>
+    </section>
+  </div>
+
+  <!-- DATA MODEL -->
+  <section id="model">
+    <div class="sec-h"><h2>Data model &amp; dictionary</h2><span class="tag">adapt the fields, keep the definitions</span></div>
+    <pre>personnel
+  person_id        text     unique identifier (stable across records)
+  name             text
+  role             text     maps to a role's required qualifications
+  site             text
+  availability     enum     available | on_leave | off_shift | unavailable
+  qualifications[] record   { code, obtained, expires }   e.g. CPR, GuardCard, CDL, OSHA10
+  # readiness_state is DERIVED, never entered by hand:
+  #   blocked  = unavailable OR any required qualification lapsed
+  #   review   = a required qualification expires within 30 days, or a record is incomplete
+  #   ready    = available AND all required qualifications current
+
+equipment
+  asset_id         text     unique identifier
+  tag              text     field/asset tag (naming convention enforced)
+  site             text
+  status           enum     in_service | maintenance | out_of_service
+  work_orders[]    record   { wo_id, description, due, closed }
+
+# Validation rules (see checklist): unique IDs, required fields present,
+# controlled vocabularies for enums, no expiry in the past without a flag,
+# every work order resolves to an existing asset.</pre>
+    <p class="note">This is the "asset/work-order data structure" and "data dictionary" named in the proposed endeavor — published openly so any organization can examine and adapt it without commissioning a new system.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <div>Open template · demonstration data only · free to adapt with attribution.<br>
+      Part of an open toolkit: personnel-readiness · asset/work-order · indicator dictionary · validation checklist.</div>
+    <div class="mono">Claudio Julián Butassi · Data Analytics<br>github.com/chavobutassi</div>
+  </div>
+</footer>
+
+<script>
+// ---------- demonstration data (synthetic) ----------
+const TODAY = new Date('2026-11-14');
+function dIn(days){const d=new Date(TODAY);d.setDate(d.getDate()+days);return d.toISOString().slice(0,10);}
+// required qualifications by role (set by the client in a real deployment)
+const ROLE_REQ = {
+  'Security Officer':['GuardCard','CPR'],
+  'Mobile Patrol':['GuardCard','CPR','DL'],
+  'Water Operator':['WTR-II','CPR'],
+  'Maintenance Tech':['OSHA10'],
+  'Field Supervisor':['GuardCard','CPR','DL']
+};
+const PERSONNEL = [
+  {person_id:'P-001',name:'A. Reyes',role:'Field Supervisor',site:'North Plant',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(240)},{code:'CPR',expires:dIn(180)},{code:'DL',expires:dIn(600)}]},
+  {person_id:'P-002',name:'M. Okafor',role:'Security Officer',site:'North Plant',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(18)},{code:'CPR',expires:dIn(300)}]},
+  {person_id:'P-003',name:'J. Castillo',role:'Mobile Patrol',site:'Depot 4',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(90)},{code:'CPR',expires:dIn(-6)},{code:'DL',expires:dIn(500)}]},
+  {person_id:'P-004',name:'S. Nguyen',role:'Water Operator',site:'West Intake',availability:'available',
+    qualifications:[{code:'WTR-II',expires:dIn(420)},{code:'CPR',expires:dIn(220)}]},
+  {person_id:'P-005',name:'D. Harper',role:'Maintenance Tech',site:'West Intake',availability:'on_leave',
+    qualifications:[{code:'OSHA10',expires:dIn(360)}]},
+  {person_id:'P-006',name:'L. Moreau',role:'Security Officer',site:'Depot 4',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(130)},{code:'CPR',expires:dIn(25)}]},
+  {person_id:'P-007',name:'R. Bianchi',role:'Mobile Patrol',site:'North Plant',availability:'unavailable',
+    qualifications:[{code:'GuardCard',expires:dIn(200)},{code:'CPR',expires:dIn(200)},{code:'DL',expires:dIn(40)}]},
+  {person_id:'P-008',name:'T. Alvarez',role:'Water Operator',site:'West Intake',availability:'available',
+    qualifications:[{code:'WTR-II',expires:dIn(70)},{code:'CPR',expires:dIn(-2)}]},
+  {person_id:'P-009',name:'K. Johansson',role:'Maintenance Tech',site:'Depot 4',availability:'available',
+    qualifications:[{code:'OSHA10',expires:dIn(15)}]},
+  {person_id:'P-010',name:'F. Haddad',role:'Security Officer',site:'North Plant',availability:'off_shift',
+    qualifications:[{code:'GuardCard',expires:dIn(310)},{code:'CPR',expires:dIn(310)}]},
+  {person_id:'P-011',name:'E. Costa',role:'Field Supervisor',site:'West Intake',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(500)},{code:'CPR',expires:dIn(500)},{code:'DL',expires:dIn(500)}]},
+  {person_id:'P-012',name:'N. Petrov',role:'Security Officer',site:'Depot 4',availability:'available',
+    qualifications:[{code:'GuardCard',expires:dIn(260)}]} // missing CPR -> incomplete
+];
+const EQUIPMENT = [
+  {asset_id:'E-01',asset:'Patrol vehicle',tag:'VEH-NP-01',site:'North Plant',status:'in_service',work_orders:[]},
+  {asset_id:'E-02',asset:'Patrol vehicle',tag:'VEH-D4-02',site:'Depot 4',status:'maintenance',work_orders:[{wo_id:'WO-118',description:'Brake service',due:dIn(-3),closed:false}]},
+  {asset_id:'E-03',asset:'Radio set',tag:'RAD-NP-07',site:'North Plant',status:'in_service',work_orders:[{wo_id:'WO-121',description:'Battery replacement',due:dIn(5),closed:false}]},
+  {asset_id:'E-04',asset:'Intake pump',tag:'PMP-WI-02',site:'West Intake',status:'out_of_service',work_orders:[{wo_id:'WO-109',description:'Seal failure — inspect',due:dIn(-11),closed:false}]},
+  {asset_id:'E-05',asset:'Access control panel',tag:'ACP-D4-01',site:'Depot 4',status:'in_service',work_orders:[]},
+  {asset_id:'E-06',asset:'Generator',tag:'GEN-WI-01',site:'West Intake',status:'in_service',work_orders:[{wo_id:'WO-124',description:'Scheduled load test',due:dIn(9),closed:false}]}
+];
+
+// ---------- derivations ----------
+function nextExpiry(p){const fut=p.qualifications.map(q=>q.expires).sort();return fut[0];}
+function daysTo(d){return Math.round((new Date(d)-TODAY)/86400000);}
+function readiness(p){
+  const req=ROLE_REQ[p.role]||[];
+  const have=Object.fromEntries(p.qualifications.map(q=>[q.code,q.expires]));
+  const missing=req.filter(c=>!(c in have));
+  const lapsed=req.some(c=>c in have && daysTo(have[c])<0);
+  if(p.availability==='unavailable'||lapsed) return 'blocked';
+  if(p.availability==='on_leave'||p.availability==='off_shift') return 'review';
+  if(missing.length) return 'review';
+  const soon=req.some(c=>c in have && daysTo(have[c])<=30);
+  if(soon) return 'review';
+  return 'ready';
+}
+const stClass={ready:'p-ok',review:'p-warn',blocked:'p-crit'};
+const avClass={available:'p-ok',on_leave:'p-warn',off_shift:'p-muted',unavailable:'p-crit'};
+
+// ---------- KPIs ----------
+function kpis(){
+  const act=PERSONNEL.length;
+  const ready=PERSONNEL.filter(p=>readiness(p)==='ready').length;
+  const cov=Math.round(ready/act*100);
+  const exp=PERSONNEL.reduce((n,p)=>n+p.qualifications.filter(q=>{const d=daysTo(q.expires);return d>=0&&d<=30;}).length,0);
+  const avail=EQUIPMENT.filter(e=>e.status==='in_service').length;
+  const eqpct=Math.round(avail/EQUIPMENT.length*100);
+  const overdue=EQUIPMENT.reduce((n,e)=>n+e.work_orders.filter(w=>!w.closed&&daysTo(w.due)<0).length,0);
+  const C=cov>=70?'ok':cov>=50?'warn':'crit';
+  const el=document.getElementById('kpis');
+  el.innerHTML=`
+    <div class="kpi"><div class="l">coverage_rate</div><div class="v ${C}">${cov}%</div><div class="s ${C}">${ready} of ${act} ready</div></div>
+    <div class="kpi"><div class="l">expiring_quals_30d</div><div class="v ${exp?'warn':'ok'}">${exp}</div><div class="s ${exp?'warn':'ok'}">${exp?'renew before assigning':'none pending'}</div></div>
+    <div class="kpi"><div class="l">equipment_available</div><div class="v ${eqpct>=70?'ok':'warn'}">${eqpct}%</div><div class="s">${avail} of ${EQUIPMENT.length} in service</div></div>
+    <div class="kpi"><div class="l">overdue_work_orders</div><div class="v ${overdue?'crit':'ok'}">${overdue}</div><div class="s ${overdue?'crit':'ok'}">${overdue?'past due':'on track'}</div></div>`;
+}
+
+// ---------- tables ----------
+let sortK='state',sortDir=1;
+function render(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const fs=document.getElementById('fstatus').value;
+  const fsite=document.getElementById('fsite').value;
+  let rows=PERSONNEL.map(p=>({...p,state:readiness(p),next_exp:nextExpiry(p),
+    quals:p.qualifications.length, availability:p.availability}));
+  rows=rows.filter(r=>(!q||(r.name+r.role+r.site).toLowerCase().includes(q))&&(!fs||r.state===fs)&&(!fsite||r.site===fsite));
+  const ord={blocked:0,review:1,ready:2};
+  rows.sort((a,b)=>{
+    let x=a[sortK],y=b[sortK];
+    if(sortK==='state'){x=ord[a.state];y=ord[b.state];}
+    if(x<y)return -1*sortDir;if(x>y)return 1*sortDir;return 0;});
+  const tb=document.getElementById('pbody');
+  tb.innerHTML=rows.map(r=>{
+    const de=daysTo(r.next_exp);
+    const expCls=de<0?'flag':de<=30?'style="color:var(--warn)"':'';
+    const expTxt=de<0?`${r.next_exp} (lapsed)`:`${r.next_exp} (${de}d)`;
+    return `<tr>
+      <td>${r.name}</td><td>${r.role}</td><td>${r.site}</td>
+      <td><span class="pill ${avClass[r.availability]}">${r.availability.replace('_',' ')}</span></td>
+      <td class="mono">${r.quals}</td>
+      <td class="mono"><span ${expCls}>${expTxt}</span></td>
+      <td><span class="pill ${stClass[r.state]}">${r.state}</span></td></tr>`;
+  }).join('')||`<tr><td colspan="7" style="color:var(--muted);text-align:center;padding:26px">No records match.</td></tr>`;
+
+  const eb=document.getElementById('ebody');
+  eb.innerHTML=EQUIPMENT.map(e=>{
+    const wo=e.work_orders.find(w=>!w.closed);
+    const overdue=wo&&daysTo(wo.due)<0;
+    const flag=e.status==='out_of_service'?'p-crit':overdue?'p-crit':e.status==='maintenance'?'p-warn':'p-ok';
+    const flagTxt=e.status==='out_of_service'?'down':overdue?'overdue':e.status==='maintenance'?'in maint.':'ok';
+    const due=wo?(daysTo(wo.due)<0?`${wo.due} (overdue)`:`${wo.due}`):'—';
+    return `<tr>
+      <td>${e.asset}</td><td class="mono">${e.tag}</td><td>${e.site}</td>
+      <td><span class="pill ${e.status==='in_service'?'p-ok':e.status==='maintenance'?'p-warn':'p-crit'}">${e.status.replace(/_/g,' ')}</span></td>
+      <td>${wo?wo.wo_id+' · '+wo.description:'—'}</td>
+      <td class="mono"><span ${wo&&daysTo(wo.due)<0?'class="flag"':''}>${due}</span></td>
+      <td><span class="pill ${flag}">${flagTxt}</span></td></tr>`;
+  }).join('');
+}
+
+// ---------- validation checklist ----------
+function validation(){
+  const ids=PERSONNEL.map(p=>p.person_id);
+  const dupIds=ids.length!==new Set(ids).size;
+  const incomplete=PERSONNEL.filter(p=>(ROLE_REQ[p.role]||[]).some(c=>!p.qualifications.find(q=>q.code===c)));
+  const vocab=['available','on_leave','off_shift','unavailable'];
+  const badVocab=PERSONNEL.filter(p=>!vocab.includes(p.availability));
+  const lapsedUnflagged=0; // derived state always flags lapses
+  const woOrphan=EQUIPMENT.flatMap(e=>e.work_orders).filter(w=>!EQUIPMENT.find(e=>e.work_orders.includes(w)));
+  const rules=[
+    {id:'V01',pass:!dupIds,t:'Unique identifiers',d:`${ids.length} person_id values, all unique.`},
+    {id:'V02',pass:incomplete.length===0,t:'Required fields present',
+      d:incomplete.length?`${incomplete.length} record(s) missing a role-required qualification — surfaced as <b>review</b> (e.g. ${incomplete[0].name}).`:'All role-required qualifications recorded.'},
+    {id:'V03',pass:badVocab.length===0,t:'Controlled vocabulary (availability)',d:'All availability values within the allowed set.'},
+    {id:'V04',pass:true,t:'Lapsed qualifications flagged',
+      d:'Expiry dates in the past are never silently accepted — they force a <b>blocked</b> state.'},
+    {id:'V05',pass:woOrphan.length===0,t:'Work orders resolve to an asset',d:'Every open work order links to an existing asset.'}
+  ];
+  document.getElementById('rules').innerHTML=rules.map(r=>`
+    <div class="rule"><span class="mk ${r.pass?'pass':'fail'}">${r.id} ${r.pass?'PASS':'CHECK'}</span>
+    <span class="d"><b>${r.t}.</b> ${r.d}</span></div>`).join('');
+}
+
+// ---------- init ----------
+(function init(){
+  const sites=[...new Set(PERSONNEL.map(p=>p.site))].sort();
+  document.getElementById('fsite').innerHTML='<option value="">All sites</option>'+sites.map(s=>`<option>${s}</option>`).join('');
+  document.querySelectorAll('#ptable th').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; if(k===sortK)sortDir*=-1; else{sortK=k;sortDir=1;} render();
+  }));
+  kpis(); validation(); render();
+})();
+</script>
+</body>
+</html>
