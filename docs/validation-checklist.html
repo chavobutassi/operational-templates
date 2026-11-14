@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validation Checklist</title>
+<style>
+  :root{--base:#14171c;--base2:#1b1f26;--panel:#1e232b;--line:#2b313b;--amber:#c47d1a;
+    --amber-bright:#e7a94a;--ink:#eef2f6;--muted:#9aa6b4;--chip:#262c35;
+    --crit:#e05a4a;--major:#e0a63a;--minor:#6aa0e0;
+    --mono:'IBM Plex Mono','DejaVu Sans Mono',ui-monospace,monospace;
+    --sans:'Inter','Liberation Sans',system-ui,-apple-system,Arial,sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--base);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--amber-bright);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(160deg,#1b1f26,#0e1013);border-bottom:1px solid var(--line)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}.badge{width:46px;height:46px;flex:none}
+  .wm{font-size:18px;font-weight:700;letter-spacing:.11em;line-height:1}
+  .wm2{font-size:10px;font-weight:700;letter-spacing:.26em;color:var(--amber);margin-top:5px}
+  .nav a{font-size:13px;color:var(--muted);margin-left:18px}.nav a.active{color:var(--amber-bright)}
+  .hero{padding:28px 0 34px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)}
+  h1{font-size:36px;line-height:1.1;font-weight:800;letter-spacing:-.02em;margin:12px 0}
+  .lead{font-size:17px;color:var(--muted);max-width:760px}
+  .demo-flag{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--mono);font-size:12px;
+    color:var(--amber-bright);background:rgba(196,125,26,.10);border:1px solid rgba(196,125,26,.4);border-radius:8px;padding:8px 13px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--amber-bright)}
+  section{padding:30px 0;border-top:1px solid var(--line)}
+  .rule{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:12px}
+  .rhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .rid{font-family:var(--mono);font-weight:700;color:var(--amber-bright);font-size:15px}
+  .rname{font-weight:700;font-size:15px}
+  .sev{font-family:var(--mono);font-size:11px;padding:2px 9px;border-radius:999px;border:1px solid}
+  .sev.critical{color:#f08a7c;border-color:rgba(224,90,74,.5);background:rgba(224,90,74,.12)}
+  .sev.major{color:var(--major);border-color:rgba(224,166,58,.5);background:rgba(224,166,58,.10)}
+  .sev.minor{color:var(--minor);border-color:rgba(106,160,224,.5);background:rgba(106,160,224,.10)}
+  .ent{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .rbody{font-size:14px;color:var(--ink)}
+  .rbody .ex{display:block;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .rbody .ex b{color:#f08a7c;font-weight:600}
+  h2{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--amber-bright);font-family:var(--mono);letter-spacing:.02em}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  button{background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 15px;font-size:13px;font-family:var(--sans);cursor:pointer}
+  button:hover{border-color:var(--amber)}
+  .note{font-size:13px;color:var(--muted);margin-top:14px}
+  .principles{font-size:14px;color:var(--muted)}.principles li{margin:7px 0 7px 18px}
+  footer{border-top:1px solid var(--line);padding:28px 0 46px;color:var(--muted);font-size:13px}
+  footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media(max-width:620px){h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <svg class="badge" viewBox="0 0 66 66" fill="none"><rect x="1.5" y="1.5" width="63" height="63" rx="15" fill="#1e232b" stroke="#c47d1a" stroke-opacity="0.55" stroke-width="1.5"/><path d="M11 47 C25 41 31 25 56 15" stroke="#c47d1a" stroke-width="5" stroke-linecap="round"/><text x="33" y="43" text-anchor="middle" font-family="Inter,Arial" font-weight="700" font-size="30" fill="#fff">CB</text></svg>
+      <div><div class="wm">CLAUDIO BUTASSI</div><div class="wm2">ENERGY &amp; DATA ANALYTICS</div></div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Readiness</a>
+      <a href="asset-work-order.html">Assets</a>
+      <a href="indicator-dictionary.html">Indicators</a>
+      <a href="validation-checklist.html" class="active">Validation</a>
+    </nav>
+  </div>
+  <div class="wrap hero">
+    <div class="eyebrow">Open template · 4 of 4</div>
+    <h1>Validation Checklist</h1>
+    <p class="lead">A portable rule set that checks operational records <b>before</b> they feed any indicator — so decisions rest on data that is complete, unique, and coherent. Each rule reports its finding with a severity; nothing is silently dropped.</p>
+    <div class="demo-flag"><span class="dot"></span>Domain-agnostic rules — the same approach used in production data pipelines, here for personnel, equipment and work-order records.</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section style="border-top:none"><h2>Rules</h2><div id="rules"></div>
+    <div class="btns"><button onclick="dlJSON()">Download validation-rules.json</button></div>
+  </section>
+  <section>
+    <h2>Principles</h2>
+    <ul class="principles">
+      <li><b>Report, don't silently filter.</b> Every finding is published with its rule and severity; what to do with it stays explicit.</li>
+      <li><b>Separate source problems from owner problems.</b> A field missing for many records at once is a source issue, not an operator's fault.</li>
+      <li><b>Check specifications against the data.</b> When documentation and data disagree, detect the truth from the data and flag it.</li>
+      <li><b>Keep an exception trail.</b> Validation runs before records feed indicators, and the exceptions remain visible for review.</li>
+    </ul>
+    <p class="note">This mirrors the asset-register and model-validation approach (IRAM-ISO 19650 style: requirements → checks → findings → a decision on the delivery) used in the Vaca Muerta Analytics project, generalized here to any operational dataset.</p>
+  </section>
+</main>
+
+<footer><div class="wrap row">
+  <div>Open template · free to adapt with attribution.<br>Part of the <a href="index.html">operational-readiness toolkit</a>.</div>
+  <div class="mono">Claudio Julián Butassi · Data Analytics<br>github.com/chavobutassi/operational-templates</div>
+</div></footer>
+
+<script>
+const RULES = [
+  {id:"V01",name:"Unique identifiers",sev:"critical",entity:"all",
+   check:"Every record has one identifier, and each identifier appears once (person_id, asset_id, wo_id).",
+   ex:"Two assets sharing E-02 → <b>duplicate id</b>, critical."},
+  {id:"V02",name:"Required fields present",sev:"major",entity:"all",
+   check:"Mandatory fields for the record's type are populated (e.g. a role's required qualifications; an asset's status and site).",
+   ex:"P-012 missing CPR → surfaced as <b>review</b>, not counted as ready."},
+  {id:"V03",name:"Controlled vocabularies",sev:"major",entity:"all",
+   check:"Enum fields hold only allowed values (availability, status, priority).",
+   ex:"status = \"broken\" → <b>out of vocabulary</b> (allowed: in_service|maintenance|out_of_service)."},
+  {id:"V04",name:"Value domains & dates",sev:"major",entity:"all",
+   check:"Numbers within plausible ranges; dates coherent (no expiry silently in the past; closed_on ≥ opened).",
+   ex:"A qualification expired 6 days ago → forces <b>blocked</b>, never accepted silently."},
+  {id:"V05",name:"Referential integrity",sev:"critical",entity:"work_orders",
+   check:"Every work order resolves to an existing asset_id.",
+   ex:"WO-130 → asset_id E-99 that does not exist → <b>orphan work order</b>, critical."},
+  {id:"V06",name:"Source vs. owner gaps",sev:"minor",entity:"all",
+   check:"A field missing for many records at once is attributed to the source/extract, not to an individual operator.",
+   ex:"40 records missing 'site' in one import → flagged as a <b>source gap</b>, not 40 operator errors."}
+];
+function rule(r){
+  return `<div class="rule"><div class="rhead">
+    <span class="rid">${r.id}</span><span class="rname">${r.name}</span>
+    <span class="sev ${r.sev}">${r.sev}</span><span class="ent">applies to: ${r.entity}</span></div>
+    <div class="rbody">${r.check}<span class="ex">Example: ${r.ex}</span></div></div>`;
+}
+document.getElementById('rules').innerHTML = RULES.map(rule).join('');
+function dlJSON(){const b=new Blob([JSON.stringify(RULES,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='validation-rules.json';a.click();URL.revokeObjectURL(u);}
+</script>
+</body>
+</html>

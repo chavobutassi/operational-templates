@@ -28,10 +28,10 @@ with a working reference implementation.
 
 | Template | What it does | Status |
 |---|---|---|
-| **Operational Readiness Template** | Personnel-readiness register + equipment/work-order view + indicator dictionary + validation checklist, all in one self-contained page | ✅ published |
-| Asset / work-order data structure | Standalone data model + dictionary for equipment and maintenance records | planned |
-| Indicator dictionary | Reusable indicator definitions (coverage, expirations, availability, overdue work) | planned |
-| Validation checklist | Portable data-validation rule set with examples | planned |
+| **[Operational Readiness Template](https://chavobutassi.github.io/operational-templates/)** | Personnel-readiness register + equipment/work-order view + indicator dictionary + validation checklist, all in one self-contained page | ✅ published |
+| **[Asset / work-order data structure](https://chavobutassi.github.io/operational-templates/asset-work-order.html)** | Standalone data model + dictionary for equipment and maintenance records, with downloadable JSON schema and demo CSVs | ✅ published |
+| **[Indicator dictionary](https://chavobutassi.github.io/operational-templates/indicator-dictionary.html)** | Reusable indicator definitions (coverage, expirations, availability, overdue work) with formula, source and update frequency | ✅ published |
+| **[Validation checklist](https://chavobutassi.github.io/operational-templates/validation-checklist.html)** | Portable data-validation rule set (V01–V06) with severity and worked examples | ✅ published |
 
 ## How to use
 
